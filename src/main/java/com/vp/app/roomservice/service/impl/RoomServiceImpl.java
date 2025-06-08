@@ -45,34 +45,26 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public Mono<RoomDTO> updateRoom(String roomId, RoomDTO roomDTO) {
-        // Implementation logic for updating a room
         log.debug("Updating room: {}", roomDTO);
         return roomRepository.findById(roomId)
                 .flatMap(existingRoom -> {
-                    existingRoom.setName(roomDTO.getName());
-                    existingRoom.setAttributes(roomDTO.getAttributes());
+                    roomMapper.updateRoomFromDto(roomDTO, existingRoom);
                     return roomRepository.save(existingRoom);
                 })
-                .doOnSuccess(updatedRoom -> log.info("Room updated room {}", updatedRoom))
-                .map(roomMapper::toRoomDTO);
+                .map(roomMapper::toRoomDTO)
+                .doOnSuccess(updatedRoomDTO -> log.info("Room updated: {}", updatedRoomDTO));
     }
 
     @Override
     public Mono<RoomDTO> patchRoom(String roomId, RoomDTO roomDTO) {
-        // Implementation logic for partially updating a room
         log.debug("Partially updating room: {}", roomDTO);
         return roomRepository.findById(roomId)
                 .flatMap(existingRoom -> {
-                    if (roomDTO.getName() != null) {
-                        existingRoom.setName(roomDTO.getName());
-                    }
-                    if (roomDTO.getAttributes() != null) {
-                        existingRoom.setAttributes(roomDTO.getAttributes());
-                    }
+                    roomMapper.patchRoomFromDto(roomDTO, existingRoom);
                     return roomRepository.save(existingRoom);
                 })
-                .doOnSuccess(updatedRoom -> log.info("Room partially updated room {}", updatedRoom))
-                .map(roomMapper::toRoomDTO);
+                .map(roomMapper::toRoomDTO)
+                .doOnSuccess(updatedRoomDTO -> log.info("Room partially updated: {}", updatedRoomDTO));
     }
 
     @Override

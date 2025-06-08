@@ -3,6 +3,7 @@ package com.vp.app.roomservice.mapper;
 import com.vp.app.roomservice.domain.Room;
 import com.vp.app.roomservice.dto.RoomDTO;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface RoomMapper {
@@ -11,5 +12,7 @@ public interface RoomMapper {
 
     RoomDTO toRoomDTO(Room room);
 
+    void updateRoomFromDto(RoomDTO dto, @MappingTarget Room entity);
 
+    void patchRoomFromDto(RoomDTO dto, @MappingTarget Room entity);
 }
