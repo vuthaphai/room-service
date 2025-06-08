@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: room-service
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/roomdb
+      database: roomdb
+logging:
+  level:
+    root: INFO
+    com.vp.app: DEBUG
