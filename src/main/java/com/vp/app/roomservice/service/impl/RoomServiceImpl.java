@@ -84,4 +84,32 @@ public class RoomServiceImpl implements RoomService {
                 .doOnNext(room -> log.info("Room found room {}", room))
                 .map(roomMapper::toRoomDTO);
     }
+
+    @Override
+    public Flux<RoomDTO> findRoomsByName(String name) {
+        // Implementation logic for finding rooms by name
+        log.debug("Finding rooms by name: {}", name);
+//        return roomRepository.findByName(name)
+//                .doOnNext(room -> log.info("Room found room {}", room))
+//                .map(roomMapper::toRoomDTO);
+        return Flux.empty();
+    }
+
+    @Override
+    public Flux<RoomDTO> findRoomsByAttributesWidth(int width) {
+        // Implementation logic for finding rooms by attributes width
+        log.debug("Finding rooms by attributes width: {}", width);
+        return roomRepository.findByAttributesWidth(width)
+                .doOnNext(room -> log.info("Room found: {}", room))
+                .map(roomMapper::toRoomDTO);
+    }
+
+    @Override
+    public Flux<RoomDTO> findRoomsByAttributesWidthAndLength(int width, int length) {
+        log.debug("Finding rooms by attributes width: {} and length: {}", width, length);
+        return roomRepository.findByAttributesWidthAndLength(width, length)
+                .doOnNext(room -> log.info("Room found: {}", room))
+                .map(roomMapper::toRoomDTO);
+    }
 }
+

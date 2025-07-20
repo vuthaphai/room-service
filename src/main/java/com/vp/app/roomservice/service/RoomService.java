@@ -19,4 +19,9 @@ public interface RoomService {
 
     Flux<RoomDTO> findAllRooms();
 
+    Flux<RoomDTO> findRoomsByName(String name);
+
+    Flux<RoomDTO> findRoomsByAttributesWidth(int width);
+
+    Flux<RoomDTO> findRoomsByAttributesWidthAndLength(int width, int length);
 }

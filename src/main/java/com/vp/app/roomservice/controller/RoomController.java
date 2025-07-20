@@ -2,6 +2,7 @@ package com.vp.app.roomservice.controller;
 
 import com.vp.app.roomservice.dto.RoomDTO;
 import com.vp.app.roomservice.service.RoomService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class RoomController {
 
     //create room
     @PostMapping()
-    public Mono<RoomDTO> createRoom(@RequestBody RoomDTO roomDTO) {
+    public Mono<RoomDTO> createRoom(@Valid @RequestBody RoomDTO roomDTO) {
         // Implementation to create a room
         return roomService.createRoom(roomDTO);
     }
@@ -56,6 +57,29 @@ public class RoomController {
     public Flux<RoomDTO> findAllRooms() {
         // Implementation to get all rooms
         return roomService.findAllRooms();
+    }
+
+    //get rooms by name
+    @GetMapping("/name/{name}")
+    public Flux<RoomDTO> findRoomsByName(@PathVariable String name) {
+        // Implementation to get rooms by name
+        log.info("get rooms by name {}", name);
+        return roomService.findRoomsByName(name);
+    }
+
+    //get rooms by attributes width
+    @GetMapping("/attributes/width/{width}")
+    public Flux<RoomDTO> findRoomsByAttributesWidth(@PathVariable int width) {
+        // Implementation to get rooms by attributes width
+        log.info("get rooms by attributes width {}", width);
+        return roomService.findRoomsByAttributesWidth(width);
+    }
+
+    //get rooms by attributes width and length using request params
+    @GetMapping("/attributes/search")
+    public Flux<RoomDTO> findRoomsByAttributesWidthAndLength(@RequestParam int width, @RequestParam int length) {
+        log.info("get rooms by attributes width {} and length {}", width, length);
+        return roomService.findRoomsByAttributesWidthAndLength(width, length);
     }
 
 }

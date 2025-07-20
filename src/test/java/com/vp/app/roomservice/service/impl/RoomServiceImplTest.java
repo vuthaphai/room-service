@@ -33,14 +33,16 @@ class RoomServiceImplTest {
         Room room = new Room();
         room.setId("683be10d51a716a4ed8f28b0");
         room.setName("Luxary room");
-        when(roomRepository.save(room)).thenReturn(Mono.just(room));
+
         RoomDTO roomDTO = new RoomDTO();
         roomDTO.setId("683be10d51a716a4ed8f28b0");
         roomDTO.setName("Luxary room");
-        when(roomMapper.toEntity(roomDTO)).thenReturn(room);
-        when(roomMapper.toRoomDTO(room)).thenReturn(roomDTO);
 
         //when
+        when(roomMapper.toEntity(roomDTO)).thenReturn(room);
+        when(roomRepository.save(room)).thenReturn(Mono.just(room));
+        when(roomMapper.toRoomDTO(room)).thenReturn(roomDTO);
+
         Mono<RoomDTO> result = roomService.createRoom(roomDTO);
 
         //then

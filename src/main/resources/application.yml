@@ -1,11 +1,26 @@
 spring:
   application:
     name: room-service
+  banner:
+    location: banner.txt
   data:
     mongodb:
       uri: mongodb://localhost:27017/roomdb
       database: roomdb
+      auto-index-creation: true
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+    livereload:
+      enabled: true
+  doc:
+    api-docs:
+      path: /v3/api-docs
+    swagger-ui:
+      path: /swagger-ui.html
 logging:
   level:
     root: INFO
     com.vp.app: DEBUG
+    org.springframework.data.mongodb: DEBUG
